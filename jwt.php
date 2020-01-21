@@ -1,7 +1,7 @@
 <?php
 class JWT {
 
-	public function create($data) {
+	public function create($data) { // Method that create the JWT.
 
 		$header = json_encode(array("typ"=>"JWT", "alg"=>"HS256"));
 
@@ -10,7 +10,7 @@ class JWT {
 		$hbase = $this->base64url_encode($header);
 		$pbase = $this->base64url_encode($payload);
 
-		$signature = hash_hmac("sha256", $hbase.".".$pbase, "abC123!", true);
+		$signature = hash_hmac("sha256", $hbase.".".$pbase, "abC123!", true);  // "abC123 is the 256bit secret"
 		$bsig = $this->base64url_encode($signature);
 
 		$jwt = $hbase.".".$pbase.".".$bsig;
@@ -19,7 +19,7 @@ class JWT {
 	}
 
 	private function base64url_encode( $data ){
-	  return rtrim( strtr( base64_encode( $data ), '+/', '-_'), '=');
+	  return rtrim( strtr( base64_encode( $data ), '+/', '-_'), '='); 
 	}
 
 	private function base64url_decode( $data ){
